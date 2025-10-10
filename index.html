@@ -1,75 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chúc mừng sinh nhật Thảoo!!</title>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <style>
-    body, html {
-	overflow: hidden;
-      margin: 0;
-      padding: 0 10px;
-      height: 100%;
+    :root{
+      --bg1:#a8edea;
+      --bg2:#fed6e3;
+      --heart-color: rgba(255,99,132,0.6);
+      --petal-color: rgba(255,182,193,0.7);
+    }
+
+    html, body { height: 100%; margin: 0; }
+
+    body {
       overflow: hidden;
+      padding: 0 10px;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
+      background-size: 200% 200%;
+      animation: gradientShift 12s ease infinite;
       font-family: Arial, sans-serif;
       text-align: center;
+      position: relative;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50%{ background-position: 100% 50%; }
+      100%{ background-position: 0% 50%; }
     }
 
     h1 {
       color: #fff;
       font-size: 2.5rem;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-      position: relative;
-      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.35);
+      margin: 20px 0;
+      z-index: 2;
+    }
+
+    .subtitle {
+      color: #f0f0f0;
+      font-size: 1.2rem;
+      margin-top: -10px;
+      z-index: 2;
     }
 
     .circle {
-      position: relative;
       width: 150px;
       height: 150px;
-      background-color: transparent;
-      background-image: url('https://scontent.fdad3-3.fna.fbcdn.net/v/t1.6435-9/53870532_587056068426904_307648846714896384_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=GlIDfANnBK4Q7kNvgE5ngEQ&_nc_ht=scontent.fdad3-3.fna&_nc_gid=AbTTKq0sbm-s_w3GMxEmNZZ&oh=00_AYCgstCZfKMoUw0zWz6g3dvcX5sWz80GLhtQIW_ZOgLc3w&oe=6728A6D1');
-      background-size: cover;
       border-radius: 50%;
-      animation: beat 1s infinite alternate;
+      overflow: hidden;
+      animation: beat 1.2s infinite alternate;
       margin-bottom: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      z-index: 2;
+    }
+
+    .circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
 
     @keyframes beat {
-      0% {
-        transform: scale(1);
-      }
-      100% {
-        transform: scale(1.1);
-      }
+      0% { transform: scale(1); }
+      100% { transform: scale(1.08); }
     }
 
     .heart {
       position: absolute;
-      width: 0;
-      height: 0;
-      background-color: transparent;
+      width: 0; height: 0;
+      background: transparent;
       transform: scale(0);
-      animation: explode 1.5s ease-out forwards;
+      animation: explode 2.2s ease-out forwards;
+      opacity: 0.9;
+      z-index: 1;
+      pointer-events:none;
     }
 
     .heart:before, .heart:after {
       content: "";
       position: absolute;
-      width: 50px;
-      height: 80px;
-      background-color: red;
+      width: 50px; height: 80px;
+      background-color: var(--heart-color);
       border-radius: 50px 50px 0 0;
       transform: rotate(-45deg);
       transform-origin: 0 100%;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.2));
     }
-
     .heart:after {
       left: -50px;
       transform: rotate(45deg);
@@ -77,96 +102,155 @@
     }
 
     @keyframes explode {
-      0% {
-        transform: scale(0);
-        opacity: 1;
-      }
-      100% {
-        transform: scale(4);
-        opacity: 0;
-      }
+      0% { transform: scale(0); opacity: 0.95; }
+      60% { opacity: 0.75; }
+      100% { transform: scale(3.6); opacity: 0; }
     }
 
-    /* Lời chúc thêm vào */
     .message {
       color: #fff;
-      font-size: 1.5rem;
-      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-      margin-top: 20px;
-      max-width: 600px;
-      padding: 0 10px; /* Thêm khoảng đệm cho văn bản */
+      font-size: 1.4rem;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.35);
+      margin-top: 10px;
+      max-width: 640px;
+      padding: 0 10px;
+      z-index: 2;
     }
 
-    /* Responsive for mobile devices */
-    @media only screen and (max-width: 768px) {
-      h1 {
-        font-size: 2rem; /* Giảm kích thước chữ cho các thiết bị nhỏ hơn */
-      }
-      .circle {
-        width: 120px;
-        height: 120px;
-      }
-      .message {
-        font-size: 1.2rem; /* Giảm kích thước văn bản cho các thiết bị nhỏ hơn */
-      }
+    #fireworks {
+      position: fixed;
+      inset: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
     }
 
-    @media only screen and (max-width: 480px) {
-      h1 {
-        font-size: 1.5rem; /* Giảm kích thước chữ cho các thiết bị nhỏ hơn */
-      }
-      .circle {
-        width: 100px;
-        height: 100px;
-      }
-      .message {
-        font-size: 1rem; /* Giảm kích thước văn bản cho các thiết bị nhỏ hơn */
-      }
+    .petal {
+      position: fixed;
+      width: 15px; height: 15px;
+      background-color: var(--petal-color);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(45deg);
+      opacity: 0.8;
+      pointer-events: none;
+      animation: fall linear infinite;
     }
 
-    /* Cải thiện giao diện cho màn hình 375px */
-    @media only screen and (max-width: 375px) {
-      h1 {
-        font-size: 2rem; /* Kích thước chữ lớn hơn cho màn hình 375px */
-      }
-      .circle {
-        width: 110px; /* Kích thước vòng tròn nhỏ hơn cho màn hình 375px */
-        height: 110px;
-      }
-      .message {
-        font-size: 1rem; /* Kích thước văn bản nhỏ hơn cho màn hình 375px */
-        padding: 0 15px; /* Thêm khoảng đệm cho văn bản */
-      }
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      .circle { width: 120px; height: 120px; }
+      .message { font-size: 1.2rem; }
     }
   </style>
 </head>
 <body>
-  <h1>Chúc mừng sinh nhật em!</h1>
+  <canvas id="fireworks"></canvas>
 
-  <div class="circle"></div>
-  <p class="message">Chúc bạn sinh nhật vui vẻ, luôn rạng rỡ và tràn đầy năng lượng! Chúc công việc thuận lợi, gặp nhiều may mắn và ngày càng thành công hơn nhé!</p>
+  <h1>Chúc mừng sinh nhật Thảoo!</h1>
+  <div class="circle">
+    <img src="./avt.jpg" alt="Ảnh đại diện Tô Thị Thanh Thảo" />
+  </div>
+  <p class="message">Chúc Thảo có một ngày sinh nhật thật vui vẻ, <br> Tràn ngập niềm vui và tiếng cười! Mong bạn luôn giữ được năng lượng tích cực, <br> Thành công trong công việc và hạnh phúc trong cuộc sống! 🎂🎉</p>
 
   <script>
-    $(document).ready(function() {
+    $(function() {
       function createHeart(x, y) {
-        const heart = $('<div class="heart"></div>').css({
-          top: y + 'px',
-          left: x + 'px'
-        });
+        const heart = $('<div class="heart"></div>').css({ top: y + 'px', left: x + 'px' });
         $('body').append(heart);
-        setTimeout(() => {
-          heart.remove();
-        }, 1500); // Xóa trái tim sau khi hiệu ứng kết thúc
+        setTimeout(() => heart.remove(), 2400);
       }
-
-      // Tạo hiệu ứng trái tim ngẫu nhiên
       function randomHearts() {
         const x = Math.random() * $(window).width();
         const y = Math.random() * $(window).height();
         createHeart(x, y);
       }
+      setInterval(randomHearts, 750);
 
-      setInterval(randomHearts, 500); // Tạo trái tim mỗi 500ms
+      function createPetal() {
+        const petal = $('<div class="petal"></div>').css({
+          left: Math.random() * window.innerWidth + 'px',
+          top: -20 + 'px',
+          animationDuration: (6 + Math.random() * 4) + 's',
+          backgroundColor: Math.random() > 0.5 ? 'rgba(255,182,193,0.8)' : 'rgba(255,223,186,0.8)'
+        });
+        $('body').append(petal);
+        setTimeout(() => petal.remove(), 10000);
+      }
+      setInterval(createPetal, 400);
+
+      const canvas = document.getElementById('fireworks');
+      const ctx = canvas.getContext('2d');
+      let W, H; 
+      function resize(){ W = canvas.width  = window.innerWidth; H = canvas.height = window.innerHeight; }
+      resize(); window.addEventListener('resize', resize);
+
+      const GRAVITY = 0.06;
+      const FRICTION = 0.985;
+      const COLORS = ['#ffffff', '#ffd166', '#ef476f', '#06d6a0', '#118ab2', '#8338ec', '#fb5607'];
+
+      class Particle{
+        constructor(x,y,angle,speed,color,life){
+          this.x=x; this.y=y;
+          this.vx=Math.cos(angle)*speed;
+          this.vy=Math.sin(angle)*speed;
+          this.alpha=1; this.color=color;
+          this.life=life; this.age=0;
+          this.size=Math.random()*2+1.2;
+        }
+        update(){
+          this.vx*=FRICTION; this.vy*=FRICTION; this.vy+=GRAVITY;
+          this.x+=this.vx; this.y+=this.vy;
+          this.age++; this.alpha = Math.max(0, 1 - this.age/this.life);
+        }
+        draw(){
+          ctx.globalAlpha = this.alpha;
+          ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+          ctx.fillStyle = this.color; ctx.fill();
+        }
+      }
+
+      class Firework{
+        constructor(x,y){
+          this.particles=[];
+          const count = 60 + Math.floor(Math.random()*40);
+          const color = COLORS[Math.floor(Math.random()*COLORS.length)];
+          for(let i=0;i<count;i++){
+            const angle = (Math.PI*2)*i/count + Math.random()*0.05;
+            const speed = 2 + Math.random()*4.5;
+            this.particles.push(new Particle(x,y,angle,speed,color, 80+Math.random()*40));
+          }
+        }
+        update(){ this.particles.forEach(p=>p.update()); this.particles = this.particles.filter(p=>p.alpha>0.02); }
+        draw(){ this.particles.forEach(p=>p.draw()); }
+        get alive(){ return this.particles.length>0; }
+      }
+
+      const fireworks=[];
+      function spawnRandomFirework(){
+        const x = 80 + Math.random()*(W-160);
+        const y = 80 + Math.random()*(H/2 - 120);
+        fireworks.push(new Firework(x,y));
+      }
+
+      setInterval(spawnRandomFirework, 1200);
+
+      window.addEventListener('click', (e)=> fireworks.push(new Firework(e.clientX, e.clientY)));
+      window.addEventListener('touchstart', (e)=>{
+        const t = e.touches[0]; fireworks.push(new Firework(t.clientX, t.clientY));
+      }, {passive:true});
+
+      (function loop(){
+        ctx.clearRect(0,0,W,H);
+        for(let i=fireworks.length-1;i>=0;i--){
+          const fw = fireworks[i]; fw.update(); fw.draw(); if(!fw.alive) fireworks.splice(i,1);
+        }
+        requestAnimationFrame(loop);
+      })();
     });
   </script>
 </body>
